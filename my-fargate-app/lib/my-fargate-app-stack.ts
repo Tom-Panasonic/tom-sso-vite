@@ -1,8 +1,9 @@
-import * as cdk from "aws-cdk-lib"; // ここを aws-cdk-lib に変更
-import * as ec2 from "aws-cdk-lib/aws-ec2"; // ここを aws-cdk-lib/aws-ec2 に変更
-import * as ecs from "aws-cdk-lib/aws-ecs"; // ここを aws-cdk-lib/aws-ecs に変更
-import * as ecsPatterns from "aws-cdk-lib/aws-ecs-patterns"; // ここを aws-cdk-lib/aws-ecs-patterns に変更
-import { Construct } from "constructs"; // Construct は constructs ライブラリからimportします
+import * as cdk from "aws-cdk-lib";
+import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as ecs from "aws-cdk-lib/aws-ecs";
+import * as ecsPatterns from "aws-cdk-lib/aws-ecs-patterns";
+import { Construct } from "constructs";
+import * as iam from "aws-cdk-lib/aws-iam"; // ここを aws-cdk-lib/aws-iam に変更
 
 export class MyFargateAppStack extends cdk.Stack {
   // cdk.Construct ではなく、importした Construct を使用します
@@ -39,6 +40,19 @@ export class MyFargateAppStack extends cdk.Stack {
           listenerPort: 80,
         }
       );
+
+    fargateService.taskDefinition.executionRole?.addManagedPolicy(
+      iam.ManagedPolicy.fromAwsManagedPolicyName(
+        "service-role/AmazonECSTaskExecutionRolePolicy"
+      )
+    );
+
+    fargateService.taskDefinition.executionRole?.addToPrincipalPolicy(
+      new iam.PolicyStatement({
+        actions: ["ecr:*"],
+        resources: ["*"],
+      })
+    );
 
     // デプロイ後にALBのエンドポイントを出力する
     new cdk.CfnOutput(this, "FargateServiceURL", {
