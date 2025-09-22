@@ -20,7 +20,9 @@ export class MyFargateAppStack extends cdk.Stack {
     });
 
     // Fargateサービスの作成
-    const accountId = "your-account-id"; // AWSアカウントIDを指定
+    const accountId = ""; // AWSアカウントIDを指定
+    const region = "ap-northeast-1";
+    const repositoryName = "sso-sample-app-repository";
     const fargateService =
       new ecsPatterns.ApplicationLoadBalancedFargateService(
         this,
@@ -29,13 +31,19 @@ export class MyFargateAppStack extends cdk.Stack {
           cluster,
           taskImageOptions: {
             image: ecs.ContainerImage.fromRegistry(
-              `${accountId}.dkr.ecr.your-region.amazonaws.com/your-repo-name:latest`
+              `${accountId}.dkr.ecr.${region}.amazonaws.com/${repositoryName}:latest`
             ),
             containerPort: 80,
           },
-          publicLoadBalancer: true, // ロードバランサーをパブリックに公開
-          listenerPort: 80, // ロードバランサーのリスナーポート
+          publicLoadBalancer: true,
+          listenerPort: 80,
         }
       );
+
+    // デプロイ後にALBのエンドポイントを出力する
+    new cdk.CfnOutput(this, "FargateServiceURL", {
+      value: `http://${fargateService.loadBalancer.loadBalancerDnsName}`,
+      description: "Public endpoint (ALB DNS) for the Fargate service",
+    });
   }
 }
