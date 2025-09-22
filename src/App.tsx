@@ -46,7 +46,7 @@ function App() {
     >
       <div
         style={{
-          width: 360,
+          width: 480,
           background: "#ffffff",
           borderRadius: 12,
           boxShadow: "0 10px 30px rgba(2,6,23,0.08)",
@@ -77,12 +77,143 @@ function App() {
 
         <h1 style={{ margin: 0, fontSize: 20, color: "#111827" }}>Welcome</h1>
         <p style={{ color: "#6b7280", marginTop: 8, marginBottom: 20, fontSize: 14 }}>
-          Sign in to continue to the application
+          Sign in to continue to the below application
         </p>
 
-        <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
+        <div style={{ display: "flex", gap: 12, justifyContent: "center", alignItems: "stretch" }}>
+          {/* Okta card */}
+          <div
+            style={{
+              flex: 1,
+              background: "#fff4e6", // light Okta/orange background
+              borderRadius: 8,
+              padding: 12,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              justifyContent: "space-between",
+              minHeight: 160,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#d97706" /* Okta orange title */ }}>
+              Okta
+            </div>
+            <div style={{ fontSize: 12, color: "#6b7280" }}>Sign in with your Okta account</div>
+            <button
+              onClick={() => auth.signinRedirect()}
+              style={{
+          marginTop: 6,
+          width: "100%",
+          padding: "10px 14px",
+          borderRadius: 8,
+          border: "none",
+          background: "#111827", // unified button background
+          color: "#fff", // unified button text color
+          cursor: "pointer",
+          fontWeight: 600,
+          height: 50,
+          alignSelf: "stretch",
+              }}
+            >
+              Sign in with Okta
+            </button>
+          </div>
+
+          {/* Azure AD card */}
+          <div
+            style={{
+              flex: 1,
+              background: "#eaf6ff", // light Azure/blue background
+              borderRadius: 8,
+              padding: 12,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              justifyContent: "space-between",
+              minHeight: 160,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#0078d4" /* Azure blue title */ }}>
+              Azure AD
+            </div>
+            <div style={{ fontSize: 12, color: "#6b7280" }}>Sign in with your Azure Active Directory</div>
+            <button
+              onClick={() => {
+          // placeholder: Azure AD not wired yet
+          // replace with the proper signin flow when configuring Azure AD
+          // e.g. auth.signinRedirect({ /* provider-specific params */})
+          alert("Azure AD sign-in not configured yet");
+              }}
+              style={{
+          marginTop: 6,
+          width: "100%",
+          padding: "10px 14px",
+          borderRadius: 8,
+          border: "none",
+          background: "#111827", // unified button background
+          color: "#fff", // unified button text color
+          cursor: "pointer",
+          fontWeight: 600,
+          height: 50,
+          alignSelf: "stretch",
+              }}
+            >
+              Sign in with Azure AD
+            </button>
+          </div>
+
+          {/* Panasonic (PA基盤) card */}
+          <div
+            style={{
+              flex: 1,
+              background: "#f0f9ff", // light Panasonic-ish background
+              borderRadius: 8,
+              padding: 12,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 8,
+              justifyContent: "space-between",
+              minHeight: 160,
+            }}
+          >
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#0033a0" /* Panasonic blue title */ }}>
+              PA基盤
+            </div>
+            <div style={{ fontSize: 12, color: "#6b7280" }}>
+              Sign in with the Panasonic authentication platform
+            </div>
+            <button
+              onClick={() => {
+          // placeholder: PA基盤のサインイン未設定
+          // PA基盤をOIDCプロバイダとして構成したら、ここを実際のサインイン処理に置き換えてください。
+          // 例: auth.signinRedirect({ /* provider-specific params or extraQueryParams */ })
+          alert("PA基盤のサインインは未設定です");
+              }}
+              style={{
+          marginTop: 6,
+          width: "100%",
+          padding: "10px 14px",
+          borderRadius: 8,
+          border: "none",
+          background: "#111827",
+          color: "#fff",
+          cursor: "pointer",
+          fontWeight: 600,
+          height: 50,
+          alignSelf: "stretch",
+              }}
+            >
+              Sign in with PA基盤
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
           <button
-            onClick={() => auth.signinRedirect()}
+            onClick={() => auth.removeUser()}
             style={{
               flex: 1,
               padding: "10px 14px",
@@ -94,7 +225,7 @@ function App() {
               fontWeight: 600,
             }}
           >
-            Sign in
+            Sign out
           </button>
 
           <button
@@ -110,7 +241,7 @@ function App() {
               fontWeight: 600,
             }}
           >
-            Sign out
+            Provider logout
           </button>
         </div>
 
