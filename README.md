@@ -23,11 +23,68 @@ aws ecr get-login-password --region ap-northeast-1 --profile pcms-dev | docker l
 
 `your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com` is your AWS account ID.
 
-````bash
+```bash
 docker tag sso-sample-app:latest your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
 docker push your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
 ```
 
+4. deploy to ECS Fargate from ECR image
+
+```bash
+mkdir my-fargate-app
+cd my-fargate-app
+npm install aws-cdk
+npx cdk init app --language=typescript
+npm install @aws-cdk/aws-ecs @aws-cdk/aws-ecs-patterns @aws-cdk/aws-ecr @aws-cdk/aws-iam @aws-cdk/aws-ec2 @aws-cdk/core
+```
+
+create a cdk stack
+
+```typescript
+// lib/my-fargate-app-stack.ts
+import * as cdk from "@aws-cdk/core";
+import * as ec2 from "@aws-cdk/aws-ec2";
+import * as ecs from "@aws-cdk/aws-ecs";
+import * as ecsPatterns from "@aws-cdk/aws-ecs-patterns";
+
+export class MyFargateAppStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // VPCの作成
+    const vpc = new ec2.Vpc(this, "MyVpc", {
+      maxAzs: 2, // 可用性ゾーンの数
+    });
+
+    // ECSクラスターの作成
+    const cluster = new ecs.Cluster(this, "MyCluster", {
+      vpc,
+    });
+
+    // Fargateサービスの作成
+    const fargateService =
+      new ecsPatterns.ApplicationLoadBalancedFargateService(
+        this,
+        "MyFargateService",
+        {
+          cluster,
+          taskImageOptions: {
+            image: ecs.ContainerImage.fromRegistry(
+              "your-account-id.dkr.ecr.your-region.amazonaws.com/your-repo-name:latest"
+            ),
+            containerPort: 80,
+          },
+        }
+      );
+
+    // セキュリティグループの設定（必要に応じて）
+    fargateService.service.connections.allowFromAnyIpv4(
+      ec2.Port.tcp(80),
+      "Allow HTTP traffic"
+    );
+  }
+}
+```
 
 ---
 
@@ -68,7 +125,7 @@ export default defineConfig([
     },
   },
 ]);
-````
+```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 

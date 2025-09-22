@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "aws-amplify": "^6.15.6",
+    "aws-cdk": "^2.1029.2",
+    "cdk": "^2.1029.2",
     "oidc-client-ts": "^3.3.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
