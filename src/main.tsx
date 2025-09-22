@@ -4,13 +4,11 @@ import App from "./App";
 import { AuthProvider } from "react-oidc-context";
 
 const cognitoAuthConfig = {
-  // e.g. https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_c7NPd74MH
   authority: "https://cognito-idp.ap-northeast-1.amazonaws.com/ap-northeast-1_LOeIpKbB8",
-  // e.g. 6ehuq2e03ftb5kr5dgl2ke5h0o
-  client_id: "33kguupbqh5gn5vl95oqn1trf5",
+  client_id: "osb35ief4b5mj04uo93jnkskr",
   redirect_uri: "http://localhost:5173/",
   response_type: "code",
-  scope: "email openid phone",
+  scope: "email openid",
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
