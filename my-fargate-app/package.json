@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy": "cdk deploy --profile pcms-dev",
+    "destroy": "cdk destroy --profile pcms-dev"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
