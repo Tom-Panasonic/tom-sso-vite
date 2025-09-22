@@ -2,6 +2,18 @@
 
 ## SSO Login Example
 
+## Run Docker App
+
+1. build and run the Docker container
+
+```bash
+npm run build
+docker build -t my-react-app .
+docker run -p 5173:80 my-react-app
+```
+
+---
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
