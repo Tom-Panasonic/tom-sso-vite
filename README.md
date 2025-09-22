@@ -8,9 +8,26 @@
 
 ```bash
 npm run build
-docker build -t my-react-app .
-docker run -p 5173:80 my-react-app
+docker build -t sso-sample-app .
+docker run -p 5173:80 sso-sample-app
 ```
+
+2. access to `http://localhost:5173`
+
+3. upload docker image to ECR and deploy to ECS
+
+```bash
+aws ecr create-repository --repository-name sso-sample-app-repository --profile pcms-dev
+aws ecr get-login-password --region ap-northeast-1 --profile pcms-dev | docker login --username AWS --password-stdin your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com
+```
+
+`your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com` is your AWS account ID.
+
+````bash
+docker tag sso-sample-app:latest your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
+docker push your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
+```
+
 
 ---
 
@@ -51,7 +68,7 @@ export default defineConfig([
     },
   },
 ]);
-```
+````
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
