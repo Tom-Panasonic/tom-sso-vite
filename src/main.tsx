@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 // wrap the application with AuthProvider
 root.render(
   <React.StrictMode>
-    <AuthProvider {...cognitoAuthConfig} extraQueryParams={{ identity_provider: "Azure" }}>
+    <AuthProvider {...cognitoAuthConfig} >
       {/* </AuthProvider><AuthProvider {...cognitoAuthConfig} extraQueryParams={{ identity_provider: "Okta" }}> */}
       <App />
       </AuthProvider>
