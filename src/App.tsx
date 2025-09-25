@@ -158,19 +158,7 @@ function App() {
           textAlign: "center",
         }}
       >
-        {/* Stack the two sign-in blocks vertically */}
-        <div style={{ marginBottom: 20, display: "flex", flexDirection: "column", gap: 20, alignItems: "center" }}>
-          <div
-            style={{
-              width: "100%",
-              maxWidth: 440,
-              padding: 20,
-              borderRadius: 12,
-              background: "linear-gradient(135deg,#ffffff,#fbfbff)",
-              boxShadow: "0 4px 12px rgba(2,6,23,0.04)",
-            }}
-          >
-            <div style={{ marginBottom: 12 }}>
+                    <div style={{ marginBottom: 12 }}>
               <div
                 style={{
                   width: 56,
@@ -193,6 +181,106 @@ function App() {
                 Use your SAML SSO account to access this application.
               </p>
             </div>
+
+
+        {/* Stack the two sign-in blocks vertically */}
+        <div style={{ marginBottom: 20, display: "flex", flexDirection: "column", gap: 20, alignItems: "center" }}>
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              maxWidth: 440,
+              padding: 20,
+              borderRadius: 12,
+              background: "linear-gradient(135deg,#ffffff,#fbfbff)",
+              boxShadow: "0 4px 12px rgba(2,6,23,0.04)",
+            }}
+          >
+          <label style={{ fontSize: 13, color: "#6b7280" }}>メールアドレス</label>
+          <input
+            type="email"
+            placeholder="you@example.com"
+            style={{
+              width: "100%",
+              padding: "10px 12px",
+              borderRadius: 8,
+              border: "1px solid #e5e7eb",
+              fontSize: 14,
+              outline: "none",
+            }}
+          />
+
+          <label style={{ fontSize: 13, color: "#6b7280", marginTop: 8 }}>パスワード</label>
+          <input
+            type="password"
+            placeholder="パスワードを入力"
+            style={{
+              width: "100%",
+              padding: "10px 12px",
+              borderRadius: 8,
+              border: "1px solid #e5e7eb",
+              fontSize: 14,
+              outline: "none",
+            }}
+          />
+
+           <div style={{ marginBottom: 20, display: "flex", flexDirection: "column", gap: 8, alignItems: "stretch", textAlign: "left" }}></div>
+
+          <button
+            disabled
+            aria-disabled="true"
+            style={{
+              width: "100%",
+              padding: "12px 16px",
+              borderRadius: 10,
+              border: "none",
+              background: "#7cfc00",
+              color: "#111827",
+              cursor: "not-allowed",
+              fontWeight: 700,
+              fontSize: 15,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              opacity: 0.6,
+              marginBottom: 12,
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M12 2C9.243 2 7 4.243 7 7v3H6a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2h-1V7c0-2.757-2.243-5-5-5z" fill="#111827" opacity="0.12"/>
+              <path d="M9 10V7a3 3 0 116 0v3" stroke="#111827" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            ログイン
+          </button>
+
+          <div style={{ margin: "16px 0", display: "flex", alignItems: "center", gap: 12 }}>
+            <span
+              style={{
+                fontSize: 12,
+                color: "#374151",
+                background: "#f8fafc",
+                padding: "6px 10px",
+                borderRadius: 999,
+                whiteSpace: "nowrap",
+              }}
+            >
+            </span>
+
+            <div style={{ flex: 1, height: 1, background: "#e5e7eb", borderRadius: 2 }} />
+
+            <span
+              style={{
+                fontSize: 12,
+                color: "#374151",
+                background: "#f8fafc",
+                padding: "6px 10px",
+                borderRadius: 999,
+                whiteSpace: "nowrap",
+              }}
+            >
+            </span>
+          </div>
 
             <button
               onClick={() => auth.signinRedirect()}
