@@ -1,5 +1,4 @@
 import { useAuth } from "react-oidc-context";
-import  { useEffect } from 'react';
 
 function App() {
   const auth = useAuth();
