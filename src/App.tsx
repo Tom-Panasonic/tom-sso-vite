@@ -135,6 +135,16 @@ function App() {
     });
   };
 
+  const signInWithGoogle = () => {
+    auth.signinRedirect({
+      extraQueryParams: { identity_provider: "Google" },
+    }).catch((err) => {
+      // optional: log error for debugging
+      // (keep tokens and sensitive info out of logs)
+      console.error("signinRedirect failed", err);
+    });
+  };
+
   return (
     <div
       style={{
@@ -355,6 +365,31 @@ function App() {
                 <path d="M6 12a6 6 0 1112 0 6 6 0 01-12 0z" fill="#fff" />
               </svg>
               Sign in with Okta
+            </button>
+            <button
+              onClick={signInWithGoogle}
+              style={{
+              width: "100%",
+              padding: "12px 16px",
+              borderRadius: 10,
+              border: "none",
+              background: "#4285F4", // Google-like blue
+              color: "#fff",
+              cursor: "pointer",
+              fontWeight: 700,
+              fontSize: 15,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              marginTop: 12, // add spacing from the button above
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 3h18v18H3z" fill="#fff" opacity="0.06" />
+              <path d="M6 12a6 6 0 1112 0 6 6 0 01-12 0z" fill="#fff" />
+              </svg>
+              Sign in with Google
             </button>
 
             <div style={{ marginTop: 12, color: "#9ca3af", fontSize: 13 }}>
