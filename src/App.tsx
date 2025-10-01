@@ -6,6 +6,7 @@ function App() {
   const signOutRedirect = () => {
     const clientId = "osb35ief4b5mj04uo93jnkskr";
     const logoutUri = "http://localhost:5173/";
+    //const logoutUri = "https://d2ehn4cdwldqb5.cloudfront.net/";
     const cognitoDomain = "https://ap-northeast-1loeipkbb8.auth.ap-northeast-1.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
@@ -114,7 +115,6 @@ function App() {
     );
   }
 
-  // Unauthenticated: SSO login page (Azure + Okta)
   const signInWithOkta = () => {
     auth.signinRedirect({
       extraQueryParams: { identity_provider: "Okta" },
@@ -138,6 +138,16 @@ function App() {
   const signInWithGoogle = () => {
     auth.signinRedirect({
       extraQueryParams: { identity_provider: "Google" },
+    }).catch((err) => {
+      // optional: log error for debugging
+      // (keep tokens and sensitive info out of logs)
+      console.error("signinRedirect failed", err);
+    });
+  };
+
+    const signInWithPanasonicDev = () => {
+    auth.signinRedirect({
+      extraQueryParams: { identity_provider: "PanasonicDev" },
     }).catch((err) => {
       // optional: log error for debugging
       // (keep tokens and sensitive info out of logs)
@@ -390,6 +400,32 @@ function App() {
               <path d="M6 12a6 6 0 1112 0 6 6 0 01-12 0z" fill="#fff" />
               </svg>
               Sign in with Google
+            </button>
+
+            <button
+              onClick={signInWithPanasonicDev}
+              style={{
+              width: "100%",
+              padding: "12px 16px",
+              borderRadius: 10,
+              border: "none",
+              background: "#00B7F1",
+              color: "#fff",
+              cursor: "pointer",
+              fontWeight: 700,
+              fontSize: 15,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              marginTop: 12, // add spacing from the button above
+              }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 3h18v18H3z" fill="#fff" opacity="0.06" />
+              <path d="M6 12a6 6 0 1112 0 6 6 0 01-12 0z" fill="#fff" />
+              </svg>
+              Sign in with PA認証基盤
             </button>
 
             <div style={{ marginTop: 12, color: "#9ca3af", fontSize: 13 }}>
