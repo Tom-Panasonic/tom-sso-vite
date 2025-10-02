@@ -2,6 +2,12 @@
 
 ## SSO Login Example
 
+![Login Example](images/image.png)
+
+### SSO Sucess Example
+
+![SSO Sucess Example](images/image2.png)
+
 ## Run Docker App
 
 1. build and run the Docker container
@@ -9,7 +15,7 @@
 ```bash
 npm run build
 docker build -t sso-sample-app .
-docker run -p 5173:80 sso-sample-app
+docker run -p 5174:80 sso-sample-app
 ```
 
 2. access to `http://localhost:5173`
@@ -18,14 +24,14 @@ docker run -p 5173:80 sso-sample-app
 
 ```bash
 aws ecr create-repository --repository-name sso-sample-app-repository --profile pcms-dev
-aws ecr get-login-password --region ap-northeast-1 --profile pcms-dev | docker login --username AWS --password-stdin your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com
+aws ecr get-login-password --region ap-northeast-1 --profile pcms-dev | docker login --username AWS --password-stdin 463470975657.dkr.ecr.ap-northeast-1.amazonaws.com
 ```
 
 `your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com` is your AWS account ID.
 
 ```bash
-docker tag sso-sample-app:latest your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
-docker push your-account-id.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:latest
+docker tag sso-sample-app:latest 463470975657.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:v1.0.2
+docker push 463470975657.dkr.ecr.ap-northeast-1.amazonaws.com/sso-sample-app-repository:v1.0.2
 ```
 
 4. deploy to ECS Fargate from ECR image
